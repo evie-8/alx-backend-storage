@@ -19,8 +19,10 @@ class Cache():
         self._redis.set(key, data)
         return key
 
-     def get(self, key: str,
-            fn: Optional[Callable] = None) -> Union[str, bytes, int, float]:
+    def get(self,
+            key: str,
+            fn: Optional[Callable] = None
+            ) -> Union[str, bytes, int, float]:
         ''' def get and fn which converts bakc to desired format'''
         value = self._redis.get(key)
         return value if not fn else fn(value)
