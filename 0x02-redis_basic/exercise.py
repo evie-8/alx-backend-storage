@@ -11,11 +11,10 @@ def count_calls(method: Callable) -> Callable:
     """function that counts calls to Cache"""
 
     @wraps(method)
-    def wrapper(self, *args, **kwargs):
+    def wrapper(self, *args, kwargs):
         """the wrapper class"""
-        key_name = method.__qualname__
-        self._redis.incr(key_name, 0) + 1
-        return method(self, *args, **kwargs)
+        args[0]._redis.incr(method.__qualname__)
+        return method(*args, kwargs)
     return wrapper
 
 
